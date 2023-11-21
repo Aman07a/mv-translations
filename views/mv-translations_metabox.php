@@ -30,7 +30,7 @@ $results = $wpdb->get_results($query, ARRAY_A);
             <label for="mv_translations_video_url"><?php esc_html_e('Video URL', 'mv-translations'); ?></label>
         </th>
         <td>
-            <input type="url" name="mv_translations_video_url" id="mv_translations_video_url" class="regular-text video-url" value="<?php echo (isset($results[1]['meta_value'])) ? esc_url($results[1]['meta_value']) : "" ?>">
+            <input type="url" name="mv_translations_video_url" id="mv_translations_video_url" class="regular-text video-url" value="<?php echo (isset($results[1]['meta_value'])) ? esc_url($results[1]['meta_value']) : ""; ?>">
         </td>
     </tr>
 </table>
