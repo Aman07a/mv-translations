@@ -40,7 +40,7 @@ if (!class_exists('MV_Translations')) {
             $this->define_constants();
 
             require_once MV_TRANSLATIONS_PATH . 'post-types/class.mv-translations-cpt.php';
-            $MVTranslationsPostType = new MV_Translations_Post_Type();
+            $MVTranslationsPostType = new MV_Translations_Post_Type(MV_TRANSLATIONS_PATH);
         }
 
         public function define_constants()

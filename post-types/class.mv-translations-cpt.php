@@ -3,14 +3,19 @@
 if (!class_exists('MV_Translations_Post_Type')) {
     class MV_Translations_Post_Type
     {
-        public function __construct()
+        private $plugin_path;
+
+        public function __construct($plugin_path)
         {
+            $this->plugin_path = $plugin_path;
+
             add_action('init', [$this, 'create_post_type']);
             add_action('init', [$this, 'create_taxonomy']);
             add_action('init', [$this, 'register_metadata_table']);
             add_action('add_meta_boxes', [$this, 'add_meta_boxes']);
 
             add_action('wp_insert_post', [$this, 'save_post'], 10, 2);
+            add_action('delete_post', [$this, 'delete_post']);
         }
 
         public function create_post_type()
@@ -81,7 +86,7 @@ if (!class_exists('MV_Translations_Post_Type')) {
 
         public function add_inner_meta_boxes($post)
         {
-            require_once MV_TRANSLATIONS_PATH . 'views/mv-translations_metabox.php';
+            require_once $this->plugin_path . 'views/mv-translations_metabox.php';
         }
 
         public function save_post($post_id, $post)
@@ -175,6 +180,23 @@ if (!class_exists('MV_Translations_Post_Type')) {
                         );
                     }
                 }
+            }
+        }
+
+        public function delete_post($post_id)
+        {
+            $post = get_post($post_id);
+
+            if (!current_user_can('delete_posts')) {
+                return;
+            }
+            if (get_post_type($post) == 'mv-translations') {
+                global $wpdb;
+                $wpdb->delete(
+                    $wpdb->translationmeta,
+                    ['translation_id' => $post_id],
+                    ['%d']
+                );
             }
         }
     }
