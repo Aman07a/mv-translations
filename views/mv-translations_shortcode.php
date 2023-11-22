@@ -1,3 +1,28 @@
+<?php
+if (isset($_POST['submitted'])) {
+    $title = $_POST['mv_translations_title'];
+    $content = $_POST['mv_translations_content'];
+    $singer = $_POST['mv_translations_singer'];
+    $transliteration = $_POST['mv_translations_transliteration'];
+    $video = $_POST['mv_translations_video_url'];
+
+    $post_info = [
+        'post_type' => 'mv-translations',
+        'post_title' => $title,
+        'post_content' => $content,
+        'tax_input' => [
+            'singers' => $singer,
+        ],
+        'post_status' => 'pending',
+    ];
+
+    $post_id = wp_insert_post($post_info);
+
+    global $post;
+    $mv_translations_post_type = new MV_Translations_Post_Type(MV_TRANSLATIONS_PATH);
+    $mv_translations_post_type->save_post($post_id, $post);
+}
+?>
 <div class="mv-translations">
     <form action="" method="POST" id="translations-form">
         <h2><?php esc_html_e('Submit new translation', 'mv-translations'); ?></h2>
