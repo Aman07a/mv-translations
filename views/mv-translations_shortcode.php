@@ -1,5 +1,11 @@
 <?php
 
+if (!is_user_logged_in()) {
+    mvt_register_user();
+
+    return;
+}
+
 if (isset($_POST['mv_translations_nonce'])) {
     if (!wp_verify_nonce($_POST['mv_translations_nonce'], 'mv_translations_nonce')) {
         return;
@@ -75,9 +81,9 @@ if (isset($_POST['submitted'])) {
         <br />
         <?php
         if (isset($content)) {
-            wp_editor($content, 'mv_translations_content', ['wpautop' => true, 'media_buttons' => true]);
+            wp_editor($content, 'mv_translations_content', ['wpautop' => true, 'media_buttons' => false]);
         } else {
-            wp_editor('', 'mv_translations_content', ['wpautop' => true, 'media_buttons' => true]);
+            wp_editor('', 'mv_translations_content', ['wpautop' => true, 'media_buttons' => false]);
         }
         ?>
         </br />
