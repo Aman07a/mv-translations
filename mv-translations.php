@@ -51,6 +51,8 @@ if (!class_exists('MV_Translations')) {
             $MVTranslationsEditShortcode = new MV_Translations_Edit_Shortcode(MV_TRANSLATIONS_PATH);
 
             add_action('wp_enqueue_scripts', [$this, 'register_scripts'], 999);
+
+            add_filter('single_template', [$this, 'load_custom_single_template']);
         }
 
         public function define_constants()
@@ -154,6 +156,15 @@ if (!class_exists('MV_Translations')) {
                 MV_TRANSLATIONS_VERSION,
                 true
             );
+        }
+
+        public function load_custom_single_template($tpl)
+        {
+            if (is_singular('mv-translations')) {
+                $tpl = MV_TRANSLATIONS_PATH . 'views/templates/single-mv-translations.php';
+            }
+
+            return $tpl;
         }
     }
 }
