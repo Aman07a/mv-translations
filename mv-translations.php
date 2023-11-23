@@ -156,6 +156,15 @@ if (!class_exists('MV_Translations')) {
                 MV_TRANSLATIONS_VERSION,
                 true
             );
+            if (is_singular('mv-translations')) {
+                wp_enqueue_style(
+                    'mv-translations',
+                    MV_TRANSLATIONS_URL . 'assets/style.css',
+                    [],
+                    MV_TRANSLATIONS_VERSION,
+                    'all'
+                );
+            }
         }
 
         public function load_custom_single_template($tpl)
