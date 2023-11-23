@@ -138,6 +138,25 @@ if (!class_exists('MV_Translations')) {
          */
         public static function uninstall()
         {
+            delete_option('mv_translation_db_version');
+
+            global $wpdb;
+
+            $wpdb->query(
+                "DELETE FROM $wpdb->posts
+                WHERE post_type = 'mv-translations'"
+            );
+
+            $wpdb->query(
+                "DELETE FROM $wpdb->posts
+                WHERE post_type = 'page'
+                AND post_name IN( 'submit-translation', 'edit-translation' )"
+            );
+
+            $wpdb->query($wpdb->prepare(
+                'DROP TABLE IF EXISTS %s',
+                $wpdb->prefix . 'translationmeta'
+            ));
         }
 
         public function register_scripts()

@@ -89,7 +89,9 @@ if (isset($_POST['submitted'])) {
         </br />
 
         <fieldset id="additional-fields">
-            <label for="mv_translations_transliteration"><?php esc_html_e('Has transliteration?', 'mv-translations'); ?></label>
+            <label for="mv_translations_transliteration">
+                <?php esc_html_e('Has transliteration?', 'mv-translations'); ?>
+            </label>
             <select name="mv_translations_transliteration" id="mv_translations_transliteration">
                 <option value="Yes" <?php if (isset($transliteration)) selected($transliteration, 'Yes'); ?>>
                     <?php esc_html_e('Yes', 'mv-translations'); ?>
@@ -98,7 +100,9 @@ if (isset($_POST['submitted'])) {
                     <?php esc_html_e('No', 'mv-translations'); ?>
                 </option>
             </select>
-            <label for="mv_translations_video_url"><?php esc_html_e('Video URL', 'mv-translations'); ?></label>
+            <label for="mv_translations_video_url">
+                <?php esc_html_e('Video URL', 'mv-translations'); ?>
+            </label>
             <input type="url" name="mv_translations_video_url" id="mv_translations_video_url" value="<?php if (isset($video)) echo $video; ?>" />
         </fieldset>
         <br />
